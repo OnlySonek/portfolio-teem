@@ -237,6 +237,8 @@ body {
 .img-frame {
     position: relative;
     overflow: hidden;
+    width: 320px;
+    height: 400px;
 }
 .img-frame img {
     display: block;
@@ -665,6 +667,13 @@ body::after {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+/* ===== TEAM IMAGE WRAP default size ===== */
+.team-img-wrap {
+    width: 200px;
+    height: 260px;
+}
+/* hide mobile-only social links on desktop */
+.team-social-links { display: none !important; }
 .team-img-wrap { cursor: pointer; }
 .team-img { transition: transform 0.6s ease, filter 0.5s ease; }
 .team-img-wrap:hover .team-img { transform: scale(1.06); filter: grayscale(0%) contrast(1.12) brightness(1.08) !important; }
@@ -680,3 +689,194 @@ body::after {
 /* corner expand on hover */
 .team-corner { transition: width 0.35s ease, height 0.35s ease; }
 .team-img-wrap:hover .team-corner { width: 14px !important; height: 14px !important; }
+
+
+/* ===================================================
+   RESPONSIVE — MOBILE
+   =================================================== */
+
+@media (max-width: 768px) {
+
+    /* ---- Navbar: hide links, keep logo ---- */
+    #navbar { padding: 12px 16px; }
+    #navbar ul { display: none; }
+    #navbar > div:last-child { display: none; }
+
+    /* ---- Side dots: move closer to edge ---- */
+    #scrollWrapper ~ div { right: 10px; }
+
+    /* ---- Hero ---- */
+    #heroTitle { font-size: 26vw !important; }
+    #heroTeamLabel { font-size: 9px; letter-spacing: 5px; }
+    #heroType { font-size: 9px !important; letter-spacing: 2px; }
+    #sectionNum { font-size: 1.8rem; }
+
+    /* ---- S1 About: stack vertically ---- */
+    #aboutInner {
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 80px 20px 24px !important;
+        align-items: flex-start !important;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+    #aboutInner::-webkit-scrollbar { display: none; }
+    #aboutTitle { font-size: 15vw !important; }
+    #aboutRight { width: 100% !important; }
+    .about-code-block { font-size: 10px; }
+
+    /* ---- S2 Member 1: stack vertically, image centered ---- */
+    #m1Inner {
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 76px 24px 24px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+    #m1Inner::-webkit-scrollbar { display: none; }
+    #m1Img { width: 100% !important; display: flex; justify-content: center; transform: none !important; }
+    #m1Frame { width: 160px !important; height: 210px !important; margin: 0 auto; }
+    #m1Info { text-align: center; transform: none !important; width: 100%; }
+    #m1Info .name-wrap,
+    #m1Info .overflow-hidden { overflow: visible !important; }
+    #m1Name { font-size: 2.8rem !important; }
+    #m1Last { font-size: 1.3rem !important; }
+    #m1Tools { justify-content: center; }
+    #m1Links { justify-content: center; }
+    #m1BgText { font-size: 28vw !important; }
+
+    /* ---- S3 Member 2: stack vertically, image centered ---- */
+    #m2Inner {
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 76px 24px 24px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+    #m2Inner::-webkit-scrollbar { display: none; }
+    #m2Img { width: 100% !important; display: flex; justify-content: center; transform: none !important; }
+    #m2Frame { width: 160px !important; height: 210px !important; margin: 0 auto; }
+    #m2Info { text-align: center; transform: none !important; width: 100%; }
+    #m2Info .name-wrap,
+    #m2Info .overflow-hidden { overflow: visible !important; }
+    #m2Name { font-size: 2.8rem !important; }
+    #m2Last { font-size: 1.3rem !important; }
+    #m2Tools { justify-content: center; }
+    #m2Links { justify-content: center; }
+    #m2BgText { font-size: 28vw !important; }
+
+    /* ---- S4 Team: side by side, image + all info ---- */
+    #teamInner {
+        flex-direction: row !important;
+        gap: 0 !important;
+        padding: 65px 4px 12px !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    #teamInner::-webkit-scrollbar { display: none; }
+    #tCard1, #tCard2 {
+        flex: 1 !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 6px 4px !important;
+    }
+    #tWrap1, #tWrap2 {
+        width: 100px !important;
+        height: 130px !important;
+        margin: 0 auto 8px !important;
+    }
+    #tCard1 .overflow-hidden,
+    #tCard2 .overflow-hidden { overflow: visible !important; }
+    #tName1, #tName2 {
+        font-size: 0.75rem !important;
+        letter-spacing: 1px;
+        transform: none !important;
+    }
+    #tRole1, #tRole2 {
+        font-size: 6px !important;
+        letter-spacing: 1px;
+        margin-bottom: 6px !important;
+        opacity: 1 !important;
+    }
+    #tBars1, #tBars2 { display: none !important; }
+    #tCard1 .flex-wrap, #tCard2 .flex-wrap {
+        display: flex !important;
+        justify-content: center !important;
+        gap: 3px !important;
+        margin-bottom: 6px !important;
+    }
+    .tool-mini {
+        font-size: 0.45rem !important;
+        padding: 2px 5px !important;
+    }
+    /* social links */
+    #tCard1 .flex.gap-3, #tCard2 .flex.gap-3 {
+        gap: 5px !important;
+        justify-content: center;
+    }
+    .team-overlay-btn { width: 28px !important; height: 28px !important; font-size: 0.7rem !important; }
+
+    /* center & badge */
+    #teamCenter {
+        flex-direction: column !important;
+        padding: 0 4px !important;
+        gap: 6px !important;
+        flex-shrink: 0;
+        margin-top: 130px;
+    }
+    #teamCenter > div:first-child,
+    #teamCenter > div:last-child {
+        width: 1px !important;
+        height: 30px !important;
+        max-height: unset !important;
+    }
+    #teamCenter .w-16 { width: 34px !important; height: 34px !important; }
+    #teamCenter .font-bebas.text-2xl { font-size: 0.9rem !important; }
+    #teamCenter .font-mono { display: none; }
+
+    #teamBgWord { font-size: 38vw !important; }
+    #teamLabel { top: 4% !important; }
+
+    /* social links inside team cards - mobile only */
+    .team-social-links { display: flex !important; }
+    .team-social-btn {
+        width: 26px; height: 26px;
+        border: 1px solid rgba(108,99,255,0.4);
+        border-radius: 6px;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(108,99,255,0.8);
+        font-size: 0.65rem;
+        background: rgba(108,99,255,0.08);
+        text-decoration: none;
+    }
+    .team-social-btn.cyan {
+        border-color: rgba(0,212,255,0.4);
+        color: rgba(0,212,255,0.8);
+        background: rgba(0,212,255,0.08);
+    }
+
+    /* ---- Snap sections: allow overflow for tall content ---- */
+    .snap-section { overflow: visible; }
+    #s1, #s2, #s3, #s4 { overflow: hidden; }
+
+    /* ---- Hide custom cursor on touch ---- */
+    #cursor { display: none !important; }
+    body { cursor: auto !important; }
+    a, button, .side-dot { cursor: pointer !important; }
+}
+
+@media (max-width: 480px) {
+    #heroTitle { font-size: 30vw !important; }
+    #aboutTitle { font-size: 17vw !important; }
+    #m1Frame, #m2Frame { width: 140px !important; height: 185px !important; }
+    #m1Name, #m2Name { font-size: 2.4rem !important; }
+    #tWrap1, #tWrap2 { width: 90px !important; height: 118px !important; }
+    #tName1, #tName2 { font-size: 0.78rem !important; }
+}

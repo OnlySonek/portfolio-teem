@@ -403,8 +403,8 @@ function animateIn(index) {
             }
         );
         gsap.fromTo('#m1Info',
-            { x: 60, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.9, ease: 'expo', delay: 0.3 }
+            { x: window.innerWidth < 769 ? 0 : 60, y: window.innerWidth < 769 ? 30 : 0, opacity: 0 },
+            { x: 0, y: 0, opacity: 1, duration: 0.9, ease: 'expo', delay: 0.3 }
         );
         // split-char stagger for name
         const m1NameChars = splitChars(document.getElementById('m1Name'));
@@ -446,8 +446,8 @@ function animateIn(index) {
             }
         );
         gsap.fromTo('#m2Info',
-            { x: -60, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.9, ease: 'expo', delay: 0.3 }
+            { x: window.innerWidth < 769 ? 0 : -60, y: window.innerWidth < 769 ? 30 : 0, opacity: 0 },
+            { x: 0, y: 0, opacity: 1, duration: 0.9, ease: 'expo', delay: 0.3 }
         );
         // split-char stagger for name
         const m2NameChars = splitChars(document.getElementById('m2Name'));
@@ -551,7 +551,7 @@ function resetSection(i) {
     if (i === 2) {
         gsap.set('#m1BgText', { x: 100, opacity: 0 });
         gsap.set('#m1Img', { clipPath: 'inset(0 100% 0 0)', scale: 1.08, opacity: 1 });
-        gsap.set('#m1Info', { x: 60, opacity: 0 });
+        gsap.set('#m1Info', { x: window.innerWidth < 769 ? 0 : 60, y: window.innerWidth < 769 ? 30 : 0, opacity: 0 });
         // restore plain text so splitChars works fresh
         const n1 = document.getElementById('m1Name');
         const l1 = document.getElementById('m1Last');
@@ -563,7 +563,7 @@ function resetSection(i) {
     if (i === 3) {
         gsap.set('#m2BgText', { x: -100, opacity: 0 });
         gsap.set('#m2Img', { clipPath: 'inset(0 0 0 100%)', scale: 1.08, opacity: 1 });
-        gsap.set('#m2Info', { x: -60, opacity: 0 });
+        gsap.set('#m2Info', { x: window.innerWidth < 769 ? 0 : -60, y: window.innerWidth < 769 ? 30 : 0, opacity: 0 });
         // restore plain text so splitChars works fresh
         const n2 = document.getElementById('m2Name');
         const l2 = document.getElementById('m2Last');

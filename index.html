@@ -151,7 +151,7 @@
     <!-- bottom accent line -->
     <div id="aboutLineBot" class="absolute bottom-0 right-0 h-[2px]" style="width:0; background:linear-gradient(to left, #00d4ff, transparent);"></div>
 
-    <div class="relative z-10 w-full max-w-6xl px-16 flex items-center gap-16">
+    <div class="relative z-10 w-full max-w-6xl px-16 flex items-center gap-16" id="aboutInner">
 
         <!-- LEFT: title + code block -->
         <div class="flex-1 flex flex-col">
@@ -187,7 +187,7 @@
         </div>
 
         <!-- RIGHT: stat cards + desc -->
-        <div class="flex flex-col gap-5 w-[340px] flex-shrink-0">
+        <div class="flex flex-col gap-5 w-[340px] flex-shrink-0" id="aboutRight">
 
             <!-- desc -->
             <div id="aboutDesc" class="mb-2" style="opacity:0; transform:translateX(30px);">
@@ -255,10 +255,10 @@
         </span>
     </div>
 
-    <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20">
+    <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20" id="m1Inner">
         <!-- image -->
         <div id="m1Img" class="member-img-block flex-shrink-0" style="opacity:0; transform:translateX(-90px);">
-            <div class="img-frame img-frame-purple relative" style="width:320px; height:400px;">
+            <div class="img-frame img-frame-purple relative" id="m1Frame">
                 <div class="c-corner tl"></div>
                 <div class="c-corner tr"></div>
                 <div class="c-corner bl"></div>
@@ -299,9 +299,9 @@
             </div>
 
             <div id="m1Links" class="flex gap-3">
-                <a href="#" class="social-btn"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" class="social-btn"><i class="fa-solid fa-globe"></i></a>
+                <a href="https://github.com/OnlySonek" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://abdelrhman-sherif-mohamed.netlify.app" target="_blank" class="social-btn"><i class="fa-solid fa-globe"></i></a>
             </div>
         </div>
     </div>
@@ -321,10 +321,10 @@
         </span>
     </div>
 
-    <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20 flex-row-reverse">
+    <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20 flex-row-reverse" id="m2Inner">
         <!-- image -->
         <div id="m2Img" class="member-img-block flex-shrink-0" style="opacity:0; transform:translateX(90px);">
-            <div class="img-frame img-frame-cyan relative" style="width:320px; height:400px;">
+            <div class="img-frame img-frame-cyan relative" id="m2Frame">
                 <div class="c-corner tl cyan-c"></div>
                 <div class="c-corner tr cyan-c"></div>
                 <div class="c-corner bl cyan-c"></div>
@@ -362,9 +362,9 @@
             </div>
 
             <div id="m2Links" class="flex gap-3">
-                <a href="#" class="social-btn social-btn-cyan"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="social-btn social-btn-cyan"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" class="social-btn social-btn-cyan"><i class="fa-solid fa-globe"></i></a>
+                <a href="https://github.com/seifelsayedofficial" target="_blank" class="social-btn social-btn-cyan"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank" class="social-btn social-btn-cyan"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://seif-elsayed.netlify.app" target="_blank" class="social-btn social-btn-cyan"><i class="fa-solid fa-globe"></i></a>
             </div>
         </div>
     </div>
@@ -399,13 +399,13 @@
     </div>
 
     <!-- MAIN CONTENT -->
-    <div class="relative z-10 w-full max-w-5xl px-10 flex items-stretch gap-0">
+    <div class="relative z-10 w-full max-w-5xl px-10 flex items-stretch gap-0" id="teamInner">
 
         <!-- MEMBER 1 CARD -->
         <div id="tCard1" class="flex-1 flex flex-col items-center text-center px-8 py-4"
             style="opacity:0; transform:translateX(-60px);">
 
-            <div class="relative mb-5 overflow-hidden team-img-wrap" style="width:200px; height:260px;">
+            <div class="relative mb-5 overflow-hidden team-img-wrap" id="tWrap1">
                 <img src="member1.jpg" alt="Abdelrhman"
                     class="w-full h-full object-cover object-top team-img"
                     style="filter:grayscale(10%) contrast(1.08);">
@@ -418,9 +418,8 @@
                 <!-- overlay -->
                 <div class="team-card-overlay absolute inset-0 flex items-center justify-center gap-3 opacity-0"
                     style="background:rgba(108,99,255,0.82);">
-                    <a href="#" class="team-overlay-btn"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#" class="team-overlay-btn"><i class="fa-solid fa-globe"></i></a>
+                    <a href="https://github.com/OnlySonek" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a> target="_blank" class="team-overlay-btn"><i class="fa-solid fa-globe"></i></a>
                 </div>
             </div>
 
@@ -457,6 +456,12 @@
                 <span class="tool-mini">JS</span><span class="tool-mini">React</span>
                 <span class="tool-mini">Tailwind</span><span class="tool-mini">Figma</span>
             </div>
+            <!-- social links (visible on mobile) -->
+            <div class="team-social-links flex gap-2 justify-center mt-2">
+                <a href="https://github.com/OnlySonek" target="_blank" class="team-social-btn"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank" class="team-social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://abdelrhman-sherif-mohamed.netlify.app" target="_blank" class="team-social-btn"><i class="fa-solid fa-globe"></i></a>
+            </div>
         </div>
 
         <!-- CENTER DIVIDER -->
@@ -486,7 +491,7 @@
         <div id="tCard2" class="flex-1 flex flex-col items-center text-center px-8 py-4"
             style="opacity:0; transform:translateX(60px);">
 
-            <div class="relative mb-5 overflow-hidden team-img-wrap" style="width:200px; height:260px;">
+            <div class="relative mb-5 overflow-hidden team-img-wrap" id="tWrap2">
                 <img src="member2.jpg" alt="Seif"
                     class="w-full h-full object-cover object-top team-img"
                     style="filter:grayscale(10%) contrast(1.08);">
@@ -498,9 +503,9 @@
                 <div class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#00d4ff] opacity-70 team-corner"></div>
                 <div class="team-card-overlay absolute inset-0 flex items-center justify-center gap-3 opacity-0"
                     style="background:rgba(0,212,255,0.75);">
-                    <a href="#" class="team-overlay-btn"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#" class="team-overlay-btn"><i class="fa-solid fa-globe"></i></a>
+                    <a href="https://github.com/seifelsayedofficial" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://seif-elsayed.netlify.app" target="_blank" class="team-overlay-btn"><i class="fa-solid fa-globe"></i></a>
                 </div>
             </div>
 
@@ -536,13 +541,16 @@
                 <span class="tool-mini cyan">JS</span><span class="tool-mini cyan">React</span>
                 <span class="tool-mini cyan">Tailwind</span><span class="tool-mini cyan">Figma</span>
             </div>
+            <!-- social links (visible on mobile) -->
+            <div class="team-social-links flex gap-2 justify-center mt-2">
+                <a href="https://github.com/seifelsayedofficial" target="_blank" class="team-social-btn cyan"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank" class="team-social-btn cyan"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://seif-elsayed.netlify.app" target="_blank" class="team-social-btn cyan"><i class="fa-solid fa-globe"></i></a>
+            </div>
         </div>
     </div>
 
-    <!-- footer -->
-    <p id="teamFooter" class="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-white/10 text-[9px] tracking-[5px] uppercase" style="opacity:0;">
-        A&S © 2025 — Built with ❤ &amp; Code
-    </p>
+
 </section>
 
 </div>
