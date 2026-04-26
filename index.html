@@ -1,559 +1,745 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A&S — Front End Developers</title>
+    <title>A&S — Full stack Developers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script>
         tailwind.config = {
-            theme: { extend: { fontFamily: {
-                bebas: ['Bebas Neue'],
-                inter: ['Inter'],
-                mono: ['Fira Code']
-            }}}
+            theme: {
+                extend: {
+                    fontFamily: {
+                        bebas: ['Bebas Neue'],
+                        inter: ['Inter'],
+                        mono: ['Fira Code']
+                    }
+                }
+            }
         }
     </script>
 </head>
+
 <body class="bg-[#080808] text-white font-inter overflow-hidden">
 
-<!-- CUSTOM CURSOR -->
-<div id="cursor" class="fixed z-[9999] pointer-events-none">
-    <div id="cursorDot" class="absolute rounded-full bg-[#6c63ff]" style="width:6px;height:6px;top:-3px;left:-3px;"></div>
-    <div id="cursorRing" class="absolute rounded-full border border-[#6c63ff]" style="width:36px;height:36px;top:-18px;left:-18px;opacity:0.4;"></div>
-</div>
-
-<!-- PAGE TRANSITION OVERLAY -->
-<div id="transOverlay" class="fixed inset-0 z-[9998] pointer-events-none"
-    style="opacity:0; background:#0a0a0a; clip-path:inset(50% 0 50% 0);"></div>
-
-<!-- AUTO-ADVANCE PROGRESS BAR -->
-<div id="autoBar" class="fixed bottom-0 left-0 z-[9997] h-[2px]"
-    style="width:0%; background:linear-gradient(to right,#6c63ff,#00d4ff); transition:none;"></div>
-
-<!-- NAVBAR -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-10 py-5 flex items-center justify-between">
-    <div class="font-bebas text-2xl tracking-[4px]">A<span class="text-[#6c63ff]">&</span>S</div>
-    <ul class="flex gap-10 list-none">
-        <li><a href="#" class="nav-link text-white/30 text-[11px] tracking-[3px] uppercase" data-index="0">Home</a></li>
-        <li><a href="#" class="nav-link text-white/30 text-[11px] tracking-[3px] uppercase" data-index="1">About</a></li>
-        <li><a href="#" class="nav-link text-white/30 text-[11px] tracking-[3px] uppercase" data-index="2">Abdelrhman</a></li>
-        <li><a href="#" class="nav-link text-white/30 text-[11px] tracking-[3px] uppercase" data-index="3">Seif</a></li>
-        <li><a href="#" class="nav-link text-white/30 text-[11px] tracking-[3px] uppercase" data-index="4">Team</a></li>
-    </ul>
-    <div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center">
-        <i class="fa-solid fa-ellipsis text-white/30 text-xs"></i>
+    <!-- CUSTOM CURSOR -->
+    <div>
+        <div id="cursorDot" class="absolute rounded-full bg-[#6c63ff]" style="width:6px;height:6px;top:-3px;left:-3px;">
+        </div>
+        <div id="cursorRing" class="absolute rounded-full border border-[#6c63ff]"
+            style="width:36px;height:36px;top:-18px;left:-18px;opacity:0.4;"></div>
     </div>
-</nav>
 
-<!-- SIDE DOTS -->
-<div class="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
-    <div class="side-dot w-1 h-8 rounded-full bg-[#6c63ff]" data-i="0"></div>
-    <div class="side-dot w-1 h-3 rounded-full bg-white/20" data-i="1"></div>
-    <div class="side-dot w-1 h-3 rounded-full bg-white/20" data-i="2"></div>
-    <div class="side-dot w-1 h-3 rounded-full bg-white/20" data-i="3"></div>
-    <div class="side-dot w-1 h-3 rounded-full bg-white/20" data-i="4"></div>
-</div>
+    <!-- PAGE TRANSITION OVERLAY -->
+    <div id="transOverlay" class="fixed inset-0 z-[9998] pointer-events-none"
+        style="opacity:0; background:#0a0a0a; clip-path:inset(50% 0 50% 0);"></div>
 
-<div id="scrollWrapper" class="h-screen overflow-y-scroll" style="scroll-snap-type:y mandatory;">
+    <!-- AUTO-ADVANCE PROGRESS BAR -->
+    <div id="autoBar" class="fixed bottom-0 left-0 z-[9997] h-[2px]"
+        style="width:0%; background:linear-gradient(to right,#6c63ff,#00d4ff); transition:none;"></div>
 
-<!-- ============================
+    <button id="menuBtn"
+        class="fixed top-6 right-6 z-[60] flex md:hidden flex-col gap-1.5 p-2 bg-[#080808]/80 backdrop-blur-md border border-white/10 rounded-lg">
+        <span class="w-6 h-0.5 bg-white transition-all duration-300"></span>
+        <span class="w-6 h-0.5 bg-[#6c63ff] transition-all duration-300"></span>
+        <span class="w-6 h-0.5 bg-white transition-all duration-300"></span>
+    </button>
+    
+    <nav id="navbar"
+        class="fixed left-[-100%] md:left-0 top-0 bottom-0 z-50 px-4 py-6 md:px-6 md:py-10 flex flex-col items-center justify-between w-64 md:w-20 border-r border-white/10 bg-[#080808] transition-all duration-500 ease-expo">
+        <div class="font-bebas text-5xl md:text-xl tracking-[2px] text-center leading-relaxed">
+            <div>A<span class="text-[#6c63ff]">&</span>S <span class="text-[#6c63ff]">Web dev</span></div> 
+            
+            
+        </div>
+    
+        <ul class="flex flex-col gap-8 md:gap-6 list-none items-center">
+            <li><a href="#"
+                    class="nav-link text-white/30 text-xs md:text-[10px] tracking-[2px] uppercase hover:text-white transition"
+                    data-index="0">Home</a></li>
+            <li><a href="#"
+                    class="nav-link text-white/30 text-xs md:text-[10px] tracking-[2px] uppercase hover:text-white transition"
+                    data-index="1">About</a></li>
+            <li><a href="#"
+                    class="nav-link text-white/30 text-xs md:text-[10px] tracking-[2px] uppercase hover:text-white transition"
+                    data-index="2">Abdul</a></li>
+            <li><a href="#"
+                    class="nav-link text-white/30 text-xs md:text-[10px] tracking-[2px] uppercase hover:text-white transition"
+                    data-index="3">Seif</a></li>
+            <li><a href="#"
+                    class="nav-link text-white/30 text-xs md:text-[10px] tracking-[2px] uppercase hover:text-white transition"
+                    data-index="4">Team</a></li>
+            <li><a href="#"
+                    class="nav-link text-white/30 text-xs md:text-[10px] tracking-[2px] uppercase hover:text-white transition"
+                    data-index="5">Projects</a></li>
+        </ul>
+    
+        <div class="hidden md:flex w-6 h-6 rounded-full border border-white/10 items-center justify-center">
+        </div>
+    </nav>
+    <!-- SIDE DOTS -->
+    <div class="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2 md:gap-3">
+        <div class="side-dot w-1 h-6 md:h-8 rounded-full bg-[#6c63ff]" data-i="0"></div>
+        <div class="side-dot w-1 h-2 md:h-3 rounded-full bg-white/20" data-i="1"></div>
+        <div class="side-dot w-1 h-2 md:h-3 rounded-full bg-white/20" data-i="2"></div>
+        <div class="side-dot w-1 h-2 md:h-3 rounded-full bg-white/20" data-i="3"></div>
+        <div class="side-dot w-1 h-2 md:h-3 rounded-full bg-white/20" data-i="4"></div>
+        <div class="side-dot w-1 h-2 md:h-3 rounded-full bg-white/20" data-i="5"></div>
+    </div>
+
+    <div id="scrollWrapper" class="h-screen overflow-y-scroll ml-0 md:ml-20" style="scroll-snap-type:y mandatory;">
+
+        <!-- ============================
      S0 — HERO
 ============================= -->
-<section class="snap-section" id="s0">
-    <!-- animated aurora background -->
-    <div class="aurora-bg absolute inset-0"></div>
-    <div class="absolute inset-0 grid-lines" style="opacity:0.4;"></div>
+        <section class="snap-section" id="s0">
+            <!-- animated aurora background -->
+            <div class="aurora-bg absolute inset-0"></div>
+            <div class="absolute inset-0 grid-lines" style="opacity:0.4;"></div>
 
-    <!-- floating particles -->
-    <div id="heroParticles" class="absolute inset-0 pointer-events-none"></div>
+            <!-- floating particles -->
+            <div id="heroParticles" class="absolute inset-0 pointer-events-none"></div>
 
-    <!-- floating tech words -->
-    <div id="heroFloatWords" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+            <!-- floating tech words -->
+            <div id="heroFloatWords" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
 
-    <div class="relative z-10 text-center flex flex-col items-center">
-        <!-- TEAM label above -->
-        <div class="overflow-hidden mb-1">
-            <p id="heroTeamLabel" class="font-mono text-white/20 text-[11px] tracking-[10px] uppercase" style="opacity:0; transform:translateY(20px);">TEAM</p>
-        </div>
-        <!-- A&S glitch -->
-        <div class="overflow-hidden mb-2">
-            <h1 id="heroTitle"
-                class="glitch-text font-bebas leading-none tracking-tight text-white"
-                data-text="A&S"
-                style="font-size:16vw; opacity:0; transform:translateY(110%);">
-                A<span class="text-[#6c63ff]">&</span>S
-            </h1>
-        </div>
+            <div class="relative z-10 text-center flex flex-col items-center px-4 md:px-0">
+                <!-- TEAM label above -->
+                <div class="overflow-hidden mb-1">
+                    <p id="heroTeamLabel"
+                        class="font-mono text-white/20 text-[9px] md:text-[11px] tracking-[8px] md:tracking-[10px] uppercase"
+                        style="opacity:0; transform:translateY(20px);">TEAM</p>
+                </div>
+                <!-- A&S glitch -->
+                <div class="overflow-hidden mb-2">
+                    <h1 id="heroTitle" class="glitch-text font-bebas leading-none tracking-tight text-white"
+                        data-text="A&S"
+                        style="font-size:clamp(3rem, 16vw, 12rem); opacity:0; transform:translateY(110%);">
+                        A<span class="text-[#6c63ff]">&</span>S
+                    </h1>
+                </div>
 
-        <!-- typewriter line -->
-        <div class="mb-10 h-6 flex items-center justify-center">
-            <span id="heroType" class="font-mono text-[#00d4ff] text-sm tracking-[6px] uppercase"></span>
-            <span class="type-cursor font-mono text-[#6c63ff] text-sm ml-0.5">|</span>
-        </div>
+                <!-- typewriter line -->
+                <div class="mb-8 md:mb-10 h-6 flex items-center justify-center">
+                    <span id="heroType"
+                        class="font-mono text-[#00d4ff] text-xs md:text-sm tracking-[4px] md:tracking-[6px] uppercase"></span>
+                    <span class="type-cursor font-mono text-[#6c63ff] text-xs md:text-sm ml-0.5">|</span>
+                </div>
 
-        <!-- scroll hint -->
-        <div id="heroHint" class="flex flex-col items-center gap-2" style="opacity:0;">
-            <span class="text-white/20 text-[9px] tracking-[5px] uppercase">Scroll</span>
-            <div class="scroll-hint-line"></div>
-        </div>
-    </div>
+                <!-- scroll hint -->
+                <div id="heroHint" class="flex flex-col items-center gap-2" style="opacity:0;">
+                    <span
+                        class="text-white/20 text-[8px] md:text-[9px] tracking-[4px] md:tracking-[5px] uppercase">Scroll</span>
+                    <div class="scroll-hint-line"></div>
+                </div>
+            </div>
 
-    <!-- aurora orbs -->
-    <div id="orb1" class="aurora-orb absolute pointer-events-none"
-        style="width:600px;height:600px; top:-10%; left:-8%;
+            <!-- aurora orbs -->
+            <div id="orb1" class="aurora-orb absolute pointer-events-none" style="width:600px;height:600px; top:-10%; left:-8%;
         background:radial-gradient(circle, rgba(108,99,255,0.18) 0%, transparent 65%);"></div>
-    <div id="orb2" class="aurora-orb absolute pointer-events-none"
-        style="width:700px;height:700px; bottom:-15%; right:-10%;
+            <div id="orb2" class="aurora-orb absolute pointer-events-none" style="width:700px;height:700px; bottom:-15%; right:-10%;
         background:radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 65%);"></div>
-    <div id="orb3" class="aurora-orb absolute pointer-events-none"
-        style="width:400px;height:400px; top:30%; left:40%;
+            <div id="orb3" class="aurora-orb absolute pointer-events-none" style="width:400px;height:400px; top:30%; left:40%;
         background:radial-gradient(circle, rgba(255,101,132,0.07) 0%, transparent 65%);"></div>
 
-    <!-- section counter bottom left -->
-    <div class="absolute bottom-8 left-10 z-10 flex items-center gap-3" style="opacity:0.3;">
-        <span class="font-bebas text-4xl text-white leading-none" id="sectionNum">01</span>
-        <div class="flex flex-col gap-1">
-            <div class="w-8 h-px bg-white/30"></div>
-            <span class="font-mono text-[9px] text-white/40 tracking-[3px] uppercase">05</span>
-        </div>
-    </div>
+            <!-- section counter bottom left -->
+            <div class="absolute bottom-6 md:bottom-8 left-6 md:left-10 z-10 flex items-center gap-2 md:gap-3"
+                style="opacity:0.3;">
+                <span class="font-bebas text-2xl md:text-4xl text-white leading-none" id="sectionNum">01</span>
+                <div class="flex flex-col gap-1">
+                    <div class="w-6 md:w-8 h-px bg-white/30"></div>
+                    <span class="font-mono text-[7px] md:text-[9px] text-white/40 tracking-widest">06</span>
+                </div>
+            </div>
 
-    <!-- year badge top right -->
-    <div class="absolute top-24 right-10 z-10 font-mono text-[10px] text-white/15 tracking-[4px] uppercase">
-        2025
-    </div>
-</section>
+            <!-- year badge top right -->
+            <div
+                class="absolute top-16 md:top-24 right-6 md:right-10 z-10 font-mono text-[8px] md:text-[10px] text-white/15 tracking-[3px] md:tracking-[4px] uppercase">
+            </div>
+        </section>
 
-<!-- ============================
+        <!-- ============================
      S1 — ABOUT
 ============================= -->
-<section class="snap-section" id="s1">
-    <div class="absolute inset-0" style="background:#080808;"></div>
-    <!-- subtle diagonal gradient -->
-    <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(108,99,255,0.07) 0%, transparent 50%, rgba(0,212,255,0.04) 100%);"></div>
-
-    <!-- giant bg word -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        <span id="aboutBgWord" class="font-bebas select-none leading-none"
-            style="font-size:30vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,0.02); letter-spacing:-10px; opacity:0;">
-            ABOUT
-        </span>
-    </div>
-
-    <!-- top accent line -->
-    <div id="aboutLineTop" class="absolute top-0 left-0 h-[2px]" style="width:0; background:linear-gradient(to right, #6c63ff, transparent);"></div>
-    <!-- bottom accent line -->
-    <div id="aboutLineBot" class="absolute bottom-0 right-0 h-[2px]" style="width:0; background:linear-gradient(to left, #00d4ff, transparent);"></div>
-
-    <div class="relative z-10 w-full max-w-6xl px-16 flex items-center gap-16" id="aboutInner">
-
-        <!-- LEFT: title + code block -->
-        <div class="flex-1 flex flex-col">
-            <div class="overflow-hidden mb-3">
-                <p id="aboutLabel" class="font-mono text-[#6c63ff] text-[10px] tracking-[6px] uppercase" style="opacity:0; transform:translateY(20px);">— Who We Are</p>
-            </div>
-            <div class="overflow-hidden mb-8">
-                <h2 id="aboutTitle" class="font-bebas leading-[0.9] text-white" style="font-size:9vw; opacity:0; transform:translateY(100%);">
-                    FRONT END<br><span class="text-[#6c63ff]">WEB</span> DEV
-                </h2>
+        <section class="snap-section" id="s1">
+            <div class="absolute inset-0" style="background:#080808;"></div>
+            <!-- subtle diagonal gradient -->
+            <div class="absolute inset-0"
+                style="background:linear-gradient(135deg, rgba(108,99,255,0.07) 0%, transparent 50%, rgba(0,212,255,0.04) 100%);">
             </div>
 
-            <!-- animated code block -->
-            <div id="aboutCode" class="about-code-block" style="opacity:0; transform:translateY(24px);">
-                <div class="about-code-bar">
-                    <span class="about-code-dot" style="background:#ff5f57;"></span>
-                    <span class="about-code-dot" style="background:#febc2e;"></span>
-                    <span class="about-code-dot" style="background:#28c840;"></span>
-                    <span class="font-mono text-white/15 text-[9px] ml-3 tracking-widest">a-and-s.dev</span>
+            <!-- giant bg word -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+                <span id="aboutBgWord" class="font-bebas select-none leading-none"
+                    style="font-size:30vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,0.02); letter-spacing:-10px; opacity:0;">
+                    ABOUT
+                </span>
+            </div>
+
+            <!-- top accent line -->
+            <div id="aboutLineTop" class="absolute top-0 left-0 h-[2px]"
+                style="width:0; background:linear-gradient(to right, #6c63ff, transparent);"></div>
+            <!-- bottom accent line -->
+            <div id="aboutLineBot" class="absolute bottom-0 right-0 h-[2px]"
+                style="width:0; background:linear-gradient(to left, #00d4ff, transparent);"></div>
+
+            <div class="relative z-10 w-full max-w-6xl px-6 md:px-16 flex flex-col md:flex-row items-center gap-8 md:gap-16"
+                id="aboutInner">
+
+                <!-- LEFT: title + code block -->
+                <div class="flex-1 flex flex-col w-full md:w-auto">
+                    <div class="overflow-hidden mb-3">
+                        <p id="aboutLabel"
+                            class="font-mono text-[#6c63ff] text-[9px] md:text-[10px] tracking-[4px] md:tracking-[6px] uppercase"
+                            style="opacity:0; transform:translateY(20px);">— Who We Are</p>
+                    </div>
+                    <div class="overflow-hidden mb-6 md:mb-8">
+                        <h2 id="aboutTitle" class="font-bebas leading-[0.9] text-white text-center md:text-left"
+                            style="font-size:clamp(2.5rem, 9vw, 6rem); opacity:0; transform:translateY(100%);">
+                            FULL STACK<br><span class="text-[#6c63ff]">WEB</span> DEV
+                        </h2>
+                    </div>
+
+                    <!-- animated code block -->
+                    <div id="aboutCode" class="about-code-block" style="opacity:0; transform:translateY(24px);">
+                        <div class="about-code-bar">
+                            <span class="about-code-dot" style="background:#ff5f57;"></span>
+                            <span class="about-code-dot" style="background:#febc2e;"></span>
+                            <span class="about-code-dot" style="background:#28c840;"></span>
+                            <span
+                                class="font-mono text-white/15 text-[8px] md:text-[9px] ml-3 tracking-widest">a-and-s.dev</span>
+                        </div>
+                        <div class="p-3 md:p-5 font-mono text-[9px] md:text-[11px] leading-5 md:leading-6">
+                            <div><span class="about-c-purple">const</span> <span class="about-c-white">team</span> <span
+                                    class="about-c-dim">=</span> <span class="about-c-cyan">{</span></div>
+                            <div class="pl-4 md:pl-5"><span class="about-c-cyan">name</span><span
+                                    class="about-c-dim">:</span>
+                                <span class="about-c-green">"A&S"</span><span class="about-c-dim">,</span>
+                            </div>
+                            <div class="pl-4 md:pl-5"><span class="about-c-cyan">role</span><span
+                                    class="about-c-dim">:</span>
+                                <span class="about-c-green">"Full Stack Developers"</span><span
+                                    class="about-c-dim">,</span>
+                            </div>
+                            <div class="pl-4 md:pl-5"><span class="about-c-cyan">stack</span><span
+                                    class="about-c-dim">:</span>
+                                <span class="about-c-white">[</span><span class="about-c-green">"React"</span><span
+                                    class="about-c-dim">,</span> <span class="about-c-green">"Tailwind"</span><span
+                                    class="about-c-dim">,</span> <span class="about-c-green">"Php"</span><span
+                                    class="about-c-dim">,</span><span class="about-c-green">"Next.js"</span><span
+                                    class="about-c-dim">,</span><span class="about-c-green">"Mysql"</span><span
+                                    class="about-c-white">]</span><span class="about-c-dim">,</span>
+                            </div>
+                            <div class="pl-4 md:pl-5"><span class="about-c-cyan">passion</span><span
+                                    class="about-c-dim">:</span> <span class="about-c-green">"Clean code &amp; beautiful
+                                    UI"</span></div>
+                            <div><span class="about-c-cyan">}</span></div>
+                            <div class="mt-2 flex items-center gap-1">
+                                <span class="about-c-dim">// </span><span class="about-c-dim"
+                                    id="aboutTypeCode"></span><span class="about-code-cursor">▋</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-5 font-mono text-[11px] leading-6">
-                    <div><span class="about-c-purple">const</span> <span class="about-c-white">team</span> <span class="about-c-dim">=</span> <span class="about-c-cyan">{</span></div>
-                    <div class="pl-5"><span class="about-c-cyan">name</span><span class="about-c-dim">:</span> <span class="about-c-green">"A&S"</span><span class="about-c-dim">,</span></div>
-                    <div class="pl-5"><span class="about-c-cyan">role</span><span class="about-c-dim">:</span> <span class="about-c-green">"Front End Developers"</span><span class="about-c-dim">,</span></div>
-                    <div class="pl-5"><span class="about-c-cyan">stack</span><span class="about-c-dim">:</span> <span class="about-c-white">[</span><span class="about-c-green">"React"</span><span class="about-c-dim">,</span> <span class="about-c-green">"Tailwind"</span><span class="about-c-dim">,</span> <span class="about-c-green">"GSAP"</span><span class="about-c-white">]</span><span class="about-c-dim">,</span></div>
-                    <div class="pl-5"><span class="about-c-cyan">passion</span><span class="about-c-dim">:</span> <span class="about-c-green">"Clean code &amp; beautiful UI"</span></div>
-                    <div><span class="about-c-cyan">}</span></div>
-                    <div class="mt-2 flex items-center gap-1">
-                        <span class="about-c-dim">// </span><span class="about-c-dim" id="aboutTypeCode"></span><span class="about-code-cursor">▋</span>
+
+                <!-- RIGHT: stat cards + desc -->
+                <div class="flex flex-col gap-4 md:gap-5 w-full md:w-[340px] flex-shrink-0" id="aboutRight">
+
+                    <!-- desc -->
+                    <div id="aboutDesc" class="mb-2" style="opacity:0; transform:translateX(30px);">
+                        <p
+                            class="text-white/30 text-[12px] md:text-[13px] leading-6 md:leading-7 text-center md:text-left">
+                            Transforming complex requirements into high-end, responsive digital solutions using advanced
+                            front-end technologies.
+                        </p>
+                    </div>
+
+                    <!-- stat cards row -->
+                    <div class="flex gap-3 md:gap-4">
+                        <div id="aboutStat1" class="about-stat-card flex-1"
+                            style="opacity:0; transform:translateY(30px);">
+                            <div class="font-bebas text-2xl md:text-4xl text-white leading-none about-stat-num"
+                                data-target="2">0
+                            </div>
+                            <div
+                                class="font-mono text-white/25 text-[7px] md:text-[9px] tracking-[2px] md:tracking-[3px] uppercase mt-1">
+                                Members</div>
+                            <div class="about-stat-line" style="background:#6c63ff;"></div>
+                        </div>
+                        <div id="aboutStat2" class="about-stat-card flex-1"
+                            style="opacity:0; transform:translateY(30px);">
+                            <div class="font-bebas text-2xl md:text-4xl text-white leading-none about-stat-num"
+                                data-target="30">0
+                            </div>
+                            <div
+                                class="font-mono text-white/25 text-[7px] md:text-[9px] tracking-[2px] md:tracking-[3px] uppercase mt-1">
+                                Tools</div>
+                            <div class="about-stat-line" style="background:#00d4ff;"></div>
+                        </div>
+                        <div id="aboutStat3" class="about-stat-card flex-1"
+                            style="opacity:0; transform:translateY(30px);">
+                            <div class="font-bebas text-2xl md:text-4xl text-[#6c63ff] leading-none">∞</div>
+                            <div
+                                class="font-mono text-white/25 text-[7px] md:text-[9px] tracking-[2px] md:tracking-[3px] uppercase mt-1">
+                                Ideas</div>
+                            <div class="about-stat-line" style="background:linear-gradient(to right,#6c63ff,#00d4ff);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- marquee -->
+                    <div id="aboutMarquee" class="overflow-hidden mt-4"
+                        style="opacity:0; -webkit-mask:linear-gradient(to right,transparent,black 10%,black 90%,transparent); mask:linear-gradient(to right,transparent,black 10%,black 90%,transparent);">
+                        <div
+                            class="marquee-track font-mono text-[7px] md:text-[9px] text-white/12 tracking-[3px] md:tracking-[4px] uppercase">
+                            <span>HTML</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>CSS</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>JavaScript</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>React</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>Bootstrap</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>Tailwind</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>Figma</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>GitHub</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>HTML</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>CSS</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>JavaScript</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>React</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>Bootstrap</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>Tailwind</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>Figma</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                            <span>GitHub</span><span class="mx-2 md:mx-3 text-[#6c63ff]">·</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- RIGHT: stat cards + desc -->
-        <div class="flex flex-col gap-5 w-[340px] flex-shrink-0" id="aboutRight">
-
-            <!-- desc -->
-            <div id="aboutDesc" class="mb-2" style="opacity:0; transform:translateX(30px);">
-                <p class="text-white/30 text-[13px] leading-7">
-                    Transforming complex requirements into high-end, responsive digital solutions using advanced front-end technologies.
-                </p>
-            </div>
-
-            <!-- stat cards row -->
-            <div class="flex gap-4">
-                <div id="aboutStat1" class="about-stat-card flex-1" style="opacity:0; transform:translateY(30px);">
-                    <div class="font-bebas text-4xl text-white leading-none about-stat-num" data-target="2">0</div>
-                    <div class="font-mono text-white/25 text-[9px] tracking-[3px] uppercase mt-1">Members</div>
-                    <div class="about-stat-line" style="background:#6c63ff;"></div>
-                </div>
-                <div id="aboutStat2" class="about-stat-card flex-1" style="opacity:0; transform:translateY(30px);">
-                    <div class="font-bebas text-4xl text-white leading-none about-stat-num" data-target="8">0</div>
-                    <div class="font-mono text-white/25 text-[9px] tracking-[3px] uppercase mt-1">Tools</div>
-                    <div class="about-stat-line" style="background:#00d4ff;"></div>
-                </div>
-                <div id="aboutStat3" class="about-stat-card flex-1" style="opacity:0; transform:translateY(30px);">
-                    <div class="font-bebas text-4xl text-[#6c63ff] leading-none">∞</div>
-                    <div class="font-mono text-white/25 text-[9px] tracking-[3px] uppercase mt-1">Ideas</div>
-                    <div class="about-stat-line" style="background:linear-gradient(to right,#6c63ff,#00d4ff);"></div>
-                </div>
-            </div>
-
-            <!-- marquee -->
-            <div id="aboutMarquee" class="overflow-hidden" style="opacity:0; -webkit-mask:linear-gradient(to right,transparent,black 10%,black 90%,transparent); mask:linear-gradient(to right,transparent,black 10%,black 90%,transparent);">
-                <div class="marquee-track font-mono text-[9px] text-white/12 tracking-[4px] uppercase">
-                    <span>HTML</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>CSS</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>JavaScript</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>React</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>Bootstrap</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>Tailwind</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>Figma</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>GitHub</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>HTML</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>CSS</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>JavaScript</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>React</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>Bootstrap</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>Tailwind</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>Figma</span><span class="mx-3 text-[#6c63ff]">·</span>
-                    <span>GitHub</span><span class="mx-3 text-[#6c63ff]">·</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================
+        <!-- ============================
      S2 — MEMBER 1
 ============================= -->
-<section class="snap-section" id="s2">
-    <div class="absolute inset-0" style="background:#080808;"></div>
-    <div class="member-aurora-bg member-aurora-purple absolute inset-0"></div>
+        <section class="snap-section" id="s2">
+            <div class="absolute inset-0" style="background:#080808;"></div>
+            <div class="member-aurora-bg member-aurora-purple absolute inset-0"></div>
 
-    <!-- bg name -->
-    <div class="absolute inset-0 flex items-center justify-end overflow-hidden pointer-events-none">
-        <span id="m1BgText" class="font-bebas leading-none select-none"
-            style="font-size:20vw; color:transparent; -webkit-text-stroke:1px rgba(108,99,255,0.06); letter-spacing:-6px; transform:translateX(60px); opacity:0;">
-            ABDELRHMAN
-        </span>
-    </div>
-
-    <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20" id="m1Inner">
-        <!-- image -->
-        <div id="m1Img" class="member-img-block flex-shrink-0" style="opacity:0; transform:translateX(-90px);">
-            <div class="img-frame img-frame-purple relative" id="m1Frame">
-                <div class="c-corner tl"></div>
-                <div class="c-corner tr"></div>
-                <div class="c-corner bl"></div>
-                <div class="c-corner br"></div>
-                <!-- glow border pulse -->
-                <div class="img-glow-border img-glow-border-purple"></div>
-                <img src="member1.jpg" alt="Abdelrhman"
-                    class="w-full h-full object-cover object-top"
-                    style="filter:grayscale(20%) contrast(1.08);">
-                <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 55%);"></div>
-            </div>
-        </div>
-
-        <!-- info -->
-        <div id="m1Info" class="flex-1" style="opacity:0; transform:translateX(70px);">
-            <p class="font-mono text-[#6c63ff] text-[10px] tracking-[5px] uppercase mb-3">Member 01</p>
-
-            <!-- name -->
-            <div class="name-wrap mb-1">
-                <h2 id="m1Name" class="font-bebas leading-none" style="font-size:7rem;">Abdelrhman</h2>
-            </div>
-            <div class="name-wrap mb-5">
-                <h3 id="m1Last" class="font-bebas text-4xl text-white/25 tracking-[6px]">Sherif</h3>
+            <!-- bg name -->
+            <div class="absolute inset-0 flex items-center justify-end overflow-hidden pointer-events-none">
+                <span id="m1BgText" class="font-bebas leading-none select-none"
+                    style="font-size:20vw; color:transparent; -webkit-text-stroke:1px rgba(108,99,255,0.06); letter-spacing:-6px; transform:translateX(60px); opacity:0;">
+                    ABDELRHMAN
+                </span>
             </div>
 
-            <p class="font-mono text-[#00d4ff] text-[10px] tracking-[4px] uppercase mb-7">Front End Developer</p>
+            <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20" id="m1Inner">
+                <!-- image -->
+                <div id="m1Img" class="member-img-block flex-shrink-0" style="opacity:0; transform:translateX(-90px);">
+                    <div class="img-frame img-frame-purple relative" id="m1Frame">
+                        <div class="c-corner tl"></div>
+                        <div class="c-corner tr"></div>
+                        <div class="c-corner bl"></div>
+                        <div class="c-corner br"></div>
+                        <!-- glow border pulse -->
+                        <div class="img-glow-border img-glow-border-purple"></div>
+                        <img src="member1.jpg" alt="Abdelrhman" class="w-full h-full object-cover object-top"
+                            style="filter:grayscale(20%) contrast(1.08);">
+                        <div class="absolute inset-0"
+                            style="background:linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 55%);"></div>
+                    </div>
+                </div>
 
-            <!-- tools auto-animated -->
-            <div id="m1Tools" class="flex flex-wrap gap-2 mb-7">
-                <span class="tool-tag tool-auto">HTML</span>
-                <span class="tool-tag tool-auto">CSS</span>
-                <span class="tool-tag tool-auto">JavaScript</span>
-                <span class="tool-tag tool-auto">React</span>
-                <span class="tool-tag tool-auto">Bootstrap</span>
-                <span class="tool-tag tool-auto">Tailwind</span>
-                <span class="tool-tag tool-auto">Figma</span>
-                <span class="tool-tag tool-auto">GitHub</span>
+                <!-- info -->
+                <div id="m1Info" class="flex-1" style="opacity:0; transform:translateX(70px);">
+                    <p class="font-mono text-[#6c63ff] text-[10px] tracking-[5px] uppercase mb-3">Member 01</p>
+
+                    <!-- name -->
+                    <div class="name-wrap mb-1">
+                        <h2 id="m1Name" class="font-bebas leading-none" style="font-size:7rem;">Abdelrhman</h2>
+                    </div>
+                    <div class="name-wrap mb-5">
+                        <h3 id="m1Last" class="font-bebas text-4xl text-white/25 tracking-[6px]">Sherif</h3>
+                    </div>
+
+                    <p class="font-mono text-[#00d4ff] text-[10px] tracking-[4px] uppercase mb-7">Full Stack Developer
+                    </p>
+
+                    <!-- tools auto-animated -->
+                    <div id="m1Tools" class="flex flex-wrap gap-2 mb-7">
+                        <span class="tool-tag tool-auto">HTML</span>
+                        <span class="tool-tag tool-auto">CSS</span>
+                        <span class="tool-tag tool-auto">JavaScript</span>
+                        <span class="tool-tag tool-auto">React</span>
+                        <span class="tool-tag tool-auto">Bootstrap</span>
+                        <span class="tool-tag tool-auto">Tailwind</span>
+                        <span class="tool-tag tool-auto">Php</span>
+                        <span class="tool-tag tool-auto">Mysql</span>
+                        <span class="tool-tag tool-auto">Next.js</span>
+                        <span class="tool-tag tool-auto">Node.js</span>
+                        <span class="tool-tag tool-auto">Typescript</span>
+                        <span class="tool-tag tool-auto">React Router</span>
+                        <span class="tool-tag tool-auto">npm</span>
+                        <span class="tool-tag tool-auto">Figma</span>
+                        <span class="tool-tag tool-auto">GitHub</span>
+                        <span class="tool-tag tool-auto">Gitflow</span>
+                        <span class="tool-tag tool-auto">ybersecurity Engineer & Penetration Tester</span>
+                        <span class="tool-tag tool-auto">Web Application Security</span>
+                        <span class="tool-tag tool-auto">Security Auditing</span>
+                        <span class="tool-tag tool-auto">OWASP Top 10</span>
+                        <span class="tool-tag tool-auto">Ethical Hacking</span>
+                    </div>
+
+                    <div id="m1Links" class="flex gap-3">
+                        <a href="https://github.com/OnlySonek" target="_blank" class="social-btn"><i
+                                class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank"
+                            class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://abdelrhman-sherif-mohamed.netlify.app" target="_blank" class="social-btn"><i
+                                class="fa-solid fa-globe"></i></a>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div id="m1Links" class="flex gap-3">
-                <a href="https://github.com/OnlySonek" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="https://abdelrhman-sherif-mohamed.netlify.app" target="_blank" class="social-btn"><i class="fa-solid fa-globe"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================
+        <!-- ============================
      S3 — MEMBER 2
 ============================= -->
-<section class="snap-section" id="s3">
-    <div class="absolute inset-0" style="background:#080808;"></div>
-    <div class="member-aurora-bg member-aurora-cyan absolute inset-0"></div>
+        <section class="snap-section" id="s3">
+            <div class="absolute inset-0" style="background:#080808;"></div>
+            <div class="member-aurora-bg member-aurora-cyan absolute inset-0"></div>
 
-    <div class="absolute inset-0 flex items-center justify-start overflow-hidden pointer-events-none">
-        <span id="m2BgText" class="font-bebas leading-none select-none"
-            style="font-size:22vw; color:transparent; -webkit-text-stroke:1px rgba(0,212,255,0.05); letter-spacing:-6px; transform:translateX(-60px); opacity:0;">
-            SEIF
-        </span>
-    </div>
-
-    <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20 flex-row-reverse" id="m2Inner">
-        <!-- image -->
-        <div id="m2Img" class="member-img-block flex-shrink-0" style="opacity:0; transform:translateX(90px);">
-            <div class="img-frame img-frame-cyan relative" id="m2Frame">
-                <div class="c-corner tl cyan-c"></div>
-                <div class="c-corner tr cyan-c"></div>
-                <div class="c-corner bl cyan-c"></div>
-                <div class="c-corner br cyan-c"></div>
-                <div class="img-glow-border img-glow-border-cyan"></div>
-                <img src="member2.jpg" alt="Seif"
-                    class="w-full h-full object-cover object-top"
-                    style="filter:grayscale(20%) contrast(1.08);">
-                <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 55%);"></div>
-            </div>
-        </div>
-
-        <!-- info -->
-        <div id="m2Info" class="flex-1" style="opacity:0; transform:translateX(-70px);">
-            <p class="font-mono text-[#00d4ff] text-[10px] tracking-[5px] uppercase mb-3">Member 02</p>
-
-            <div class="overflow-hidden mb-1">
-                <h2 id="m2Name" class="font-bebas leading-none" style="font-size:7rem;">Seif</h2>
-            </div>
-            <div class="overflow-hidden mb-5">
-                <h3 id="m2Last" class="font-bebas text-4xl text-white/25 tracking-[6px]">El-sayed</h3>
+            <div class="absolute inset-0 flex items-center justify-start overflow-hidden pointer-events-none">
+                <span id="m2BgText" class="font-bebas leading-none select-none"
+                    style="font-size:22vw; color:transparent; -webkit-text-stroke:1px rgba(0,212,255,0.05); letter-spacing:-6px; transform:translateX(-60px); opacity:0;">
+                    SEIF
+                </span>
             </div>
 
-            <p class="font-mono text-[#6c63ff] text-[10px] tracking-[4px] uppercase mb-7">Front End Developer</p>
+            <div class="relative z-10 max-w-5xl w-full px-16 flex items-center gap-20 flex-row-reverse" id="m2Inner">
+                <!-- image -->
+                <div id="m2Img" class="member-img-block flex-shrink-0" style="opacity:0; transform:translateX(90px);">
+                    <div class="img-frame img-frame-cyan relative" id="m2Frame">
+                        <div class="c-corner tl cyan-c"></div>
+                        <div class="c-corner tr cyan-c"></div>
+                        <div class="c-corner bl cyan-c"></div>
+                        <div class="c-corner br cyan-c"></div>
+                        <div class="img-glow-border img-glow-border-cyan"></div>
+                        <img src="member2.jpg" alt="Seif" class="w-full h-full object-cover object-top"
+                            style="filter:grayscale(20%) contrast(1.08);">
+                        <div class="absolute inset-0"
+                            style="background:linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 55%);"></div>
+                    </div>
+                </div>
 
-            <div id="m2Tools" class="flex flex-wrap gap-2 mb-7">
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">HTML</span>
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">CSS</span>
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">JavaScript</span>
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">React</span>
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">Bootstrap</span>
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">Tailwind</span>
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">Figma</span>
-                <span class="tool-tag tool-tag-cyan tool-auto-cyan">GitHub</span>
+                <!-- info -->
+                <div id="m2Info" class="flex-1" style="opacity:0; transform:translateX(-70px);">
+                    <p class="font-mono text-[#00d4ff] text-[10px] tracking-[5px] uppercase mb-3">Member 02</p>
+
+                    <div class="overflow-hidden mb-1">
+                        <h2 id="m2Name" class="font-bebas leading-none" style="font-size:7rem;">Seif</h2>
+                    </div>
+                    <div class="overflow-hidden mb-5">
+                        <h3 id="m2Last" class="font-bebas text-4xl text-white/25 tracking-[6px]">El-sayed</h3>
+                    </div>
+
+                    <p class="font-mono text-[#6c63ff] text-[10px] tracking-[4px] uppercase mb-7">Full Stack Developer
+                    </p>
+
+                    <div id="m2Tools" class="flex flex-wrap gap-2 mb-7">
+                        <span class="tool-tag tool-auto">HTML</span>
+                        <span class="tool-tag tool-auto">CSS</span>
+                        <span class="tool-tag tool-auto">JavaScript</span>
+                        <span class="tool-tag tool-auto">React</span>
+                        <span class="tool-tag tool-auto">Bootstrap</span>
+                        <span class="tool-tag tool-auto">Tailwind</span>
+                        <span class="tool-tag tool-auto">Php</span>
+                        <span class="tool-tag tool-auto">Mysql</span>
+                        <span class="tool-tag tool-auto">Next.js</span>
+                        <span class="tool-tag tool-auto">Node.js</span>
+                        <span class="tool-tag tool-auto">Typescript</span>
+                        <span class="tool-tag tool-auto">React Router</span>
+                        <span class="tool-tag tool-auto">npm</span>
+                        <span class="tool-tag tool-auto">Figma</span>
+                        <span class="tool-tag tool-auto">GitHub</span>
+                        <span class="tool-tag tool-auto">Gitflow</span>
+                    </div>
+
+                    <div id="m2Links" class="flex gap-3">
+                        <a href="https://github.com/seifelsayedofficial" target="_blank"
+                            class="social-btn social-btn-cyan"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank"
+                            class="social-btn social-btn-cyan"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://seif-elsayed.netlify.app" target="_blank" class="social-btn social-btn-cyan"><i
+                                class="fa-solid fa-globe"></i></a>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div id="m2Links" class="flex gap-3">
-                <a href="https://github.com/seifelsayedofficial" target="_blank" class="social-btn social-btn-cyan"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank" class="social-btn social-btn-cyan"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="https://seif-elsayed.netlify.app" target="_blank" class="social-btn social-btn-cyan"><i class="fa-solid fa-globe"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================
+        <!-- ============================
      S4 — TEAM
 ============================= -->
-<section class="snap-section" id="s4">
-    <div class="absolute inset-0" style="background:#080808;"></div>
+        <section class="snap-section" id="s4">
+            <div class="absolute inset-0" style="background:#080808;"></div>
 
-    <!-- dual aurora bg -->
-    <div class="absolute inset-0 pointer-events-none" style="
+            <!-- dual aurora bg -->
+            <div class="absolute inset-0 pointer-events-none" style="
         background:
             radial-gradient(ellipse 40% 70% at 15% 50%, rgba(108,99,255,0.1) 0%, transparent 60%),
             radial-gradient(ellipse 40% 70% at 85% 50%, rgba(0,212,255,0.08) 0%, transparent 60%);
         animation: memberAurora 8s ease-in-out infinite alternate;
     "></div>
 
-    <!-- giant bg text -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        <span id="teamBgWord" class="font-bebas select-none leading-none"
-            style="font-size:26vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,0.025); letter-spacing:-8px; opacity:0;">
-            TEAM
-        </span>
+            <!-- giant bg text -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+                <span id="teamBgWord" class="font-bebas select-none leading-none"
+                    style="font-size:26vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,0.025); letter-spacing:-8px; opacity:0;">
+                    TEAM
+                </span>
+            </div>
+
+            <!-- top label -->
+            <div id="teamLabel" class="absolute top-[10%]  -translate-x-1/2 z-10 text-center w-full px-4"
+                style="opacity:0; transform:translateY(16px);">
+                <p class="font-mono text-[#6c63ff] text-[10px] tracking-[8px] uppercase mb-2">— The Professionals —</p>
+                <div class="h-px w-32 mx-auto bg-gradient-to-r from-transparent via-[#6c63ff] to-transparent">
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div class="relative z-10 w-full max-w-5xl px-10 flex items-stretch gap-0" id="teamInner">
+
+                <!-- top label - مرئي على الموبايل فقط داخل الـ flow -->
+                <div id="teamLabelMobile" class="hidden w-full text-center mb-2">
+                    <p class="font-mono text-[#6c63ff] text-[10px] tracking-[6px] uppercase mb-2">— The Professionals —</p>
+                    <div class="h-px w-24 mx-auto bg-gradient-to-r from-transparent via-[#6c63ff] to-transparent"></div>
+                </div>
+
+                <!-- MEMBER 1 CARD -->
+                <div id="tCard1" class="flex-1 flex flex-col items-center text-center px-8 py-4"
+                    style="opacity:0; transform:translateX(-60px);">
+
+                    <div class="relative mb-5 overflow-hidden team-img-wrap" id="tWrap1">
+                        <img src="member1.jpg" alt="Abdelrhman" class="w-full h-full object-cover object-top team-img"
+                            style="filter:grayscale(10%) contrast(1.08);">
+                        <div class="absolute inset-0"
+                            style="background:linear-gradient(to top, rgba(8,8,8,0.75) 0%, transparent 45%);"></div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#6c63ff] to-transparent">
+                        </div>
+                        <div
+                            class="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#6c63ff] opacity-70 team-corner">
+                        </div>
+                        <div
+                            class="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#6c63ff] opacity-70 team-corner">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#6c63ff] opacity-70 team-corner">
+                        </div>
+                        <div
+                            class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#6c63ff] opacity-70 team-corner">
+                        </div>
+                        <!-- overlay -->
+                        <div class="team-card-overlay absolute inset-0 flex items-center justify-center gap-3 opacity-0"
+                            style="background:rgba(108,99,255,0.82);">
+                            <a href="https://github.com/OnlySonek" target="_blank" class="team-overlay-btn"><i
+                                    class="fa-brands fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank"
+                                class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="https://abdelrhman-sherif.gt.tc" target="_blank" class="team-overlay-btn"><i
+                                    class="fa-solid fa-globe"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="overflow-hidden mb-0.5">
+                        <h3 id="tName1" class="font-bebas text-[2rem] tracking-widest leading-none"
+                            style="transform:translateY(100%);">Abdelrhman Sherif</h3>
+                    </div>
+                    <p id="tRole1" class="font-mono text-[#6c63ff] text-[9px] tracking-[4px] uppercase mb-4"
+                        style="opacity:0;">Full Stack Developer</p>
+
+
+
+                    <!-- tools mini -->
+                    <div class="flex flex-wrap gap-1.5 justify-center">
+                        <span class="tool-mini">Front end</span><span class="tool-mini">back end</span>
+                        <span class="tool-mini">Cybersecurity</span>
+                    </div>
+                    <!-- social links (visible on mobile) -->
+                    <div class="team-social-links flex gap-2 justify-center mt-2">
+                        <a href="https://github.com/OnlySonek" target="_blank" class="team-social-btn"><i
+                                class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank"
+                            class="team-social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://abdelrhman-sherif-mohamed.netlify.app" target="_blank"
+                            class="team-social-btn"><i class="fa-solid fa-globe"></i></a>
+                    </div>
+                </div>
+
+                <!-- CENTER DIVIDER -->
+                <div id="teamCenter" class="flex flex-col items-center justify-center gap-4 px-6 flex-shrink-0"
+                    style="opacity:0;">
+                    <!-- connection line top -->
+                    <div class="w-px flex-1 max-h-24 bg-gradient-to-b from-transparent via-white/[0.08] to-transparent">
+                    </div>
+
+                    <!-- VS badge -->
+                    <div class="relative flex flex-col items-center gap-3">
+                        <!-- glow ring -->
+
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center relative"
+                            style="background:radial-gradient(circle, rgba(108,99,255,0.15) 0%, rgba(0,212,255,0.08) 100%); border:1px solid rgba(255,255,255,0.08);">
+                            <span class="font-bebas text-2xl team-amp-text">&</span>
+                        </div>
+
+                        <!-- year tag -->
+                        <div class="font-mono text-white/15 text-[8px] tracking-[3px]">2025</div>
+                    </div>
+
+                    <div class="w-px flex-1 max-h-24 bg-gradient-to-b from-transparent via-white/[0.08] to-transparent">
+                    </div>
+                </div>
+
+                <!-- MEMBER 2 CARD -->
+                <div id="tCard2" class="flex-1 flex flex-col items-center text-center px-8 py-4"
+                    style="opacity:0; transform:translateX(60px);">
+
+                    <div class="relative mb-5 overflow-hidden team-img-wrap" id="tWrap2">
+                        <img src="member2.jpg" alt="Seif" class="w-full h-full object-cover object-top team-img"
+                            style="filter:grayscale(10%) contrast(1.08);">
+                        <div class="absolute inset-0"
+                            style="background:linear-gradient(to top, rgba(8,8,8,0.75) 0%, transparent 45%);"></div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00d4ff] to-transparent">
+                        </div>
+                        <div
+                            class="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#00d4ff] opacity-70 team-corner">
+                        </div>
+                        <div
+                            class="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#00d4ff] opacity-70 team-corner">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#00d4ff] opacity-70 team-corner">
+                        </div>
+                        <div
+                            class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#00d4ff] opacity-70 team-corner">
+                        </div>
+                        <div class="team-card-overlay absolute inset-0 flex items-center justify-center gap-3 opacity-0"
+                            style="background:rgba(0,212,255,0.75);">
+                            <a href="https://github.com/seifelsayedofficial" target="_blank" class="team-overlay-btn"><i
+                                    class="fa-brands fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank"
+                                class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="https://seif-elsayed.netlify.app" target="_blank" class="team-overlay-btn"><i
+                                    class="fa-solid fa-globe"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="overflow-hidden mb-0.5">
+                        <h3 id="tName2" class="font-bebas text-[2rem] tracking-widest leading-none"
+                            style="transform:translateY(100%);">Seif El-sayed</h3>
+                    </div>
+                    <p id="tRole2" class="font-mono text-[#00d4ff] text-[9px] tracking-[4px] uppercase mb-4"
+                        style="opacity:0;">Full Stack Developer</p>
+
+                    <!-- skill bars -->
+
+                    <div class="flex flex-wrap gap-1.5 justify-center">
+                        <span class="tool-mini">Front end</span><span class="tool-mini">back end</span>
+                    </div>
+                    <!-- social links (visible on mobile) -->
+                    <div class="team-social-links flex gap-2 justify-center mt-2">
+                        <a href="https://github.com/seifelsayedofficial" target="_blank" class="team-social-btn cyan"><i
+                                class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank"
+                            class="team-social-btn cyan"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://seif-elsayed.netlify.app" target="_blank" class="team-social-btn cyan"><i
+                                class="fa-solid fa-globe"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- ============================
+     S5 — PROJECTS
+============================= -->
+        <section class="snap-section w-auto" id="s5">
+            <div class="absolute inset-0" style="background:#080808;"></div>
+            <!-- subtle gradient -->
+            <div class="absolute inset-0"
+                style="background:linear-gradient(135deg, rgba(108,99,255,0.05) 0%, transparent 50%, rgba(0,212,255,0.03) 100%);">
+            </div>
+
+            <!-- giant bg word -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+                <span class="font-bebas select-none leading-none"
+                    style="font-size:25vw; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,0.02); letter-spacing:-8px;">
+                    PROJECTS
+                </span>
+            </div>
+
+            <div class="relative z-10 w-full max-w-6xl px-6 md:px-16 flex flex-col items-center">
+                <!-- label -->
+                <div class="overflow-hidden mb-3">
+                    <p class="font-mono text-[#6c63ff] text-[9px] md:text-[10px] tracking-[4px] md:tracking-[6px] uppercase"
+                        style="opacity:0; transform:translateY(20px);">— Our Work —</p>
+                </div>
+                <!-- title -->
+                <div class="overflow-hidden mb-8 md:mb-12">
+                    <h2 class="font-bebas leading-[0.9] text-white text-center"
+                        style="font-size:clamp(2rem, 5vw, 4rem); opacity:0; transform:translateY(100%);">
+                        FEATURED<br><span class="text-[#00d4ff]">PROJECTS</span>
+                    </h2>
+                </div>
+
+                <!-- projects grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
+                    <!-- Project 1 -->
+                    <div
+                        class="project-card bg-white/5 border border-white/10 rounded-lg p-4 md:p-6 hover:bg-white/10 transition-all">
+                        <img src="ayatcurtains.webp" alt="ayatcurtains"
+                            class="w-full h-32 md:h-40 object-cover rounded mb-3"
+                            style="filter:brightness(1.1) contrast(1.2);">
+                        <div class="mb-3">
+                            <h3 class="font-bebas text-base md:text-lg text-white mb-2">ayatcurtains</h3>
+                            <p class="text-white/60 text-xs md:text-sm">A high-performance e-commerce solution designed
+                                to digitize
+                                the textile industry. AYAT provides a seamless shopping
+                                experience by bridging the gap between traditional commerce and modern technology,
+                                focusing on scalability, speed, and
+                                security.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-3 md:mb-4">
+                            <span
+                                class="text-[10px] md:text-xs bg-[#6c63ff]/20 text-[#6c63ff] px-2 py-1 rounded">React</span>
+                            <span
+                                class="text-[10px] md:text-xs bg-[#00d4ff]/20 text-[#00d4ff] px-2 py-1 rounded">Node.js</span>
+                            <span
+                                class="text-[10px] md:text-xs bg-[#6c63ff]/20 text-[#6c63ff] px-2 py-1 rounded">Php</span>
+                            <span
+                                class="text-[10px] md:text-xs bg-[#00d4ff]/20 text-[#00d4ff] px-2 py-1 rounded">Mysql</span>
+                            <span
+                                class="text-[10px] md:text-xs bg-[#6c63ff]/20 text-[#6c63ff] px-2 py-1 rounded">tailwind.css</span>
+                            <span
+                                class="text-[10px] md:text-xs bg-[#00d4ff]/20 text-[#00d4ff] px-2 py-1 rounded">Security
+                                Auditing</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://ayatcurtains.com/" class="text-[#6c63ff] hover:text-white text-sm"><i
+                                    class="fa-solid fa-external-link-alt mr-1"></i>Live View</a>
+                        </div>
+                    </div>
+        </section>
+
     </div>
-
-    <!-- top label -->
-    <div id="teamLabel" class="absolute top-[10%] left-1/2 -translate-x-1/2 z-10 text-center" style="opacity:0; transform:translateY(16px);">
-        <p class="font-mono text-[#6c63ff] text-[10px] tracking-[8px] uppercase">— The Professionals —</p>
-        <div class="mt-2 h-px w-32 mx-auto bg-gradient-to-r from-transparent via-[#6c63ff] to-transparent"></div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div class="relative z-10 w-full max-w-5xl px-10 flex items-stretch gap-0" id="teamInner">
-
-        <!-- MEMBER 1 CARD -->
-        <div id="tCard1" class="flex-1 flex flex-col items-center text-center px-8 py-4"
-            style="opacity:0; transform:translateX(-60px);">
-
-            <div class="relative mb-5 overflow-hidden team-img-wrap" id="tWrap1">
-                <img src="member1.jpg" alt="Abdelrhman"
-                    class="w-full h-full object-cover object-top team-img"
-                    style="filter:grayscale(10%) contrast(1.08);">
-                <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(8,8,8,0.75) 0%, transparent 45%);"></div>
-                <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#6c63ff] to-transparent"></div>
-                <div class="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#6c63ff] opacity-70 team-corner"></div>
-                <div class="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#6c63ff] opacity-70 team-corner"></div>
-                <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#6c63ff] opacity-70 team-corner"></div>
-                <div class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#6c63ff] opacity-70 team-corner"></div>
-                <!-- overlay -->
-                <div class="team-card-overlay absolute inset-0 flex items-center justify-center gap-3 opacity-0"
-                    style="background:rgba(108,99,255,0.82);">
-                    <a href="https://github.com/OnlySonek" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a> target="_blank" class="team-overlay-btn"><i class="fa-solid fa-globe"></i></a>
-                </div>
-            </div>
-
-            <div class="overflow-hidden mb-0.5">
-                <h3 id="tName1" class="font-bebas text-[2rem] tracking-widest leading-none" style="transform:translateY(100%);">Abdelrhman Sherif</h3>
-            </div>
-            <p id="tRole1" class="font-mono text-[#6c63ff] text-[9px] tracking-[4px] uppercase mb-4" style="opacity:0;">Front End Developer</p>
-
-            <!-- skill bars -->
-            <div id="tBars1" class="w-full space-y-2 mb-4" style="opacity:0;">
-                <div class="flex items-center gap-2">
-                    <span class="font-mono text-white/30 text-[8px] w-14 text-right">UI/UX</span>
-                    <div class="flex-1 h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
-                        <div class="skill-bar h-full rounded-full" style="width:0%; background:linear-gradient(to right,#6c63ff,#a78bfa);" data-w="90%"></div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="font-mono text-white/30 text-[8px] w-14 text-right">React</span>
-                    <div class="flex-1 h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
-                        <div class="skill-bar h-full rounded-full" style="width:0%; background:linear-gradient(to right,#6c63ff,#a78bfa);" data-w="88%"></div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="font-mono text-white/30 text-[8px] w-14 text-right">Figma</span>
-                    <div class="flex-1 h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
-                        <div class="skill-bar h-full rounded-full" style="width:0%; background:linear-gradient(to right,#6c63ff,#a78bfa);" data-w="85%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- tools mini -->
-            <div class="flex flex-wrap gap-1.5 justify-center">
-                <span class="tool-mini">HTML</span><span class="tool-mini">CSS</span>
-                <span class="tool-mini">JS</span><span class="tool-mini">React</span>
-                <span class="tool-mini">Tailwind</span><span class="tool-mini">Figma</span>
-            </div>
-            <!-- social links (visible on mobile) -->
-            <div class="team-social-links flex gap-2 justify-center mt-2">
-                <a href="https://github.com/OnlySonek" target="_blank" class="team-social-btn"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/" target="_blank" class="team-social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="https://abdelrhman-sherif-mohamed.netlify.app" target="_blank" class="team-social-btn"><i class="fa-solid fa-globe"></i></a>
-            </div>
-        </div>
-
-        <!-- CENTER DIVIDER -->
-        <div id="teamCenter" class="flex flex-col items-center justify-center gap-4 px-6 flex-shrink-0" style="opacity:0;">
-            <!-- connection line top -->
-            <div class="w-px flex-1 max-h-24 bg-gradient-to-b from-transparent via-white/[0.08] to-transparent"></div>
-
-            <!-- VS badge -->
-            <div class="relative flex flex-col items-center gap-3">
-                <!-- glow ring -->
-                <div class="absolute inset-[-8px] rounded-full border border-[#6c63ff] opacity-15 animate-ping" style="animation-duration:2s;"></div>
-                <div class="absolute inset-[-16px] rounded-full border border-[#00d4ff] opacity-8 animate-ping" style="animation-duration:3s; animation-delay:0.5s;"></div>
-
-                <div class="w-16 h-16 rounded-full flex items-center justify-center relative"
-                    style="background:radial-gradient(circle, rgba(108,99,255,0.15) 0%, rgba(0,212,255,0.08) 100%); border:1px solid rgba(255,255,255,0.08);">
-                    <span class="font-bebas text-2xl team-amp-text">&</span>
-                </div>
-
-                <!-- year tag -->
-                <div class="font-mono text-white/15 text-[8px] tracking-[3px]">2025</div>
-            </div>
-
-            <div class="w-px flex-1 max-h-24 bg-gradient-to-b from-transparent via-white/[0.08] to-transparent"></div>
-        </div>
-
-        <!-- MEMBER 2 CARD -->
-        <div id="tCard2" class="flex-1 flex flex-col items-center text-center px-8 py-4"
-            style="opacity:0; transform:translateX(60px);">
-
-            <div class="relative mb-5 overflow-hidden team-img-wrap" id="tWrap2">
-                <img src="member2.jpg" alt="Seif"
-                    class="w-full h-full object-cover object-top team-img"
-                    style="filter:grayscale(10%) contrast(1.08);">
-                <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(8,8,8,0.75) 0%, transparent 45%);"></div>
-                <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00d4ff] to-transparent"></div>
-                <div class="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#00d4ff] opacity-70 team-corner"></div>
-                <div class="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#00d4ff] opacity-70 team-corner"></div>
-                <div class="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#00d4ff] opacity-70 team-corner"></div>
-                <div class="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#00d4ff] opacity-70 team-corner"></div>
-                <div class="team-card-overlay absolute inset-0 flex items-center justify-center gap-3 opacity-0"
-                    style="background:rgba(0,212,255,0.75);">
-                    <a href="https://github.com/seifelsayedofficial" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank" class="team-overlay-btn"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://seif-elsayed.netlify.app" target="_blank" class="team-overlay-btn"><i class="fa-solid fa-globe"></i></a>
-                </div>
-            </div>
-
-            <div class="overflow-hidden mb-0.5">
-                <h3 id="tName2" class="font-bebas text-[2rem] tracking-widest leading-none" style="transform:translateY(100%);">Seif El-sayed</h3>
-            </div>
-            <p id="tRole2" class="font-mono text-[#00d4ff] text-[9px] tracking-[4px] uppercase mb-4" style="opacity:0;">Front End Developer</p>
-
-            <!-- skill bars -->
-            <div id="tBars2" class="w-full space-y-2 mb-4" style="opacity:0;">
-                <div class="flex items-center gap-2">
-                    <span class="font-mono text-white/30 text-[8px] w-14 text-right">UI/UX</span>
-                    <div class="flex-1 h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
-                        <div class="skill-bar h-full rounded-full" style="width:0%; background:linear-gradient(to right,#00d4ff,#67e8f9);" data-w="90%"></div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="font-mono text-white/30 text-[8px] w-14 text-right">React</span>
-                    <div class="flex-1 h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
-                        <div class="skill-bar h-full rounded-full" style="width:0%; background:linear-gradient(to right,#00d4ff,#67e8f9);" data-w="88%"></div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="font-mono text-white/30 text-[8px] w-14 text-right">Figma</span>
-                    <div class="flex-1 h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
-                        <div class="skill-bar h-full rounded-full" style="width:0%; background:linear-gradient(to right,#00d4ff,#67e8f9);" data-w="85%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap gap-1.5 justify-center">
-                <span class="tool-mini cyan">HTML</span><span class="tool-mini cyan">CSS</span>
-                <span class="tool-mini cyan">JS</span><span class="tool-mini cyan">React</span>
-                <span class="tool-mini cyan">Tailwind</span><span class="tool-mini cyan">Figma</span>
-            </div>
-            <!-- social links (visible on mobile) -->
-            <div class="team-social-links flex gap-2 justify-center mt-2">
-                <a href="https://github.com/seifelsayedofficial" target="_blank" class="team-social-btn cyan"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/seif-elsayed-dev/" target="_blank" class="team-social-btn cyan"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="https://seif-elsayed.netlify.app" target="_blank" class="team-social-btn cyan"><i class="fa-solid fa-globe"></i></a>
-            </div>
-        </div>
-    </div>
-
-
-</section>
-
-</div>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
