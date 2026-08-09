@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="500">
+      <stop offset="0" stop-color="#120d16"/>
+      <stop offset="1" stop-color="#0a0f1f"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="800" y2="500">
+      <stop offset="0" stop-color="#6c63ff"/>
+      <stop offset="1" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <g opacity="0.1">
+    <circle cx="400" cy="250" r="180" fill="none" stroke="#6c63ff" stroke-width="1"/>
+    <circle cx="400" cy="250" r="120" fill="none" stroke="#6c63ff" stroke-width="1"/>
+  </g>
+  <g>
+    <rect x="300" y="110" width="200" height="200" rx="22" fill="#0c0c14" stroke="url(#acc)" stroke-width="2"/>
+    <path d="M400 150 L440 210 L420 250 L380 250 L360 210 Z" fill="#6c63ff" opacity="0.9"/>
+    <circle cx="400" cy="150" r="28" fill="#00d4ff" opacity="0.9"/>
+    <circle cx="400" cy="150" r="14" fill="#080808"/>
+  </g>
+  <g fill="#00d4ff" opacity="0.6">
+    <rect x="240" y="360" width="320" height="12" rx="6"/>
+  </g>
+  <text x="400" y="420" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="url(#acc)">Secure Auth Suite</text>
+</svg>
