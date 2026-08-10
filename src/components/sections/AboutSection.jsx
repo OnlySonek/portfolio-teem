@@ -1,6 +1,8 @@
 ﻿import Section from "../Section";
 import { useSite } from "../../context/SiteContext";
-import { MEMBER_1, MEMBER_2 } from "../../data/content";
+import { MEMBER_1, MEMBER_2, MEMBER_3 } from "../../data/content";
+
+const MEMBERS = [MEMBER_1, MEMBER_2, MEMBER_3];
 
 export default function AboutSection() {
   const { t, pick } = useSite();
@@ -51,6 +53,60 @@ export default function AboutSection() {
                 <span className="font-mono text-xs text-faint uppercase tracking-widest">
                   {s.label}
                 </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-16">
+          <h3
+            data-reveal
+            className="font-display font-semibold text-2xl md:text-3xl mb-8"
+          >
+            {t("about.storyTitle")}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {MEMBERS.map((member) => (
+              <div
+                key={member.memberNo}
+                data-reveal
+                className="card p-7 h-full flex flex-col gap-4"
+              >
+                <div className="flex items-center gap-3.5">
+                  {member.image ? (
+                    <img
+                      src={`/${member.image}`}
+                      alt={`${pick(member.firstName)} ${pick(member.lastName)}`}
+                      className="w-11 h-11 rounded-xl object-cover shrink-0"
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <div
+                      className="w-11 h-11 rounded-xl bg-surface-2 border border-line flex items-center justify-center shrink-0"
+                      aria-hidden="true"
+                    >
+                      <span className="font-display font-bold text-lg text-faint">
+                        ?
+                      </span>
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-display font-semibold text-sm">
+                      {pick(member.firstName)} {pick(member.lastName)}
+                    </p>
+                    <p
+                      className="font-mono text-[10px] uppercase tracking-widest"
+                      style={{ color: "var(--accent)" }}
+                    >
+                      {pick(member.role)}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-mute text-sm leading-6">
+                  {pick(member.story)}
+                </p>
               </div>
             ))}
           </div>

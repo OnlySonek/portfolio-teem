@@ -34,6 +34,7 @@ export const STRINGS = {
       p1: "combine deep development experience with a security-first mindset. We design, build and ship products that look great, load fast and hold up under pressure.",
       p2: "From pixel-perfect UI to hardened backends, we own the whole journey — so you get a cohesive product, not a patchwork.",
       and: "and",
+      storyTitle: "Our story",
     },
     stats: {
       years: "Years combined",
@@ -111,6 +112,7 @@ export const STRINGS = {
       p1: "يجمعان خبرة تطوير عميقة مع عقلية تركّز على الأمان. نصمم ونبني ونطلق منتجات رائعة، سريعة التحميل وقادرة على الصمود تحت الضغط.",
       p2: "من واجهات دقيقة إلى أنظمة خلفية محصّنة، نتحكم في الرحلة كاملة — لتحصل على منتج متكامل، لا ترميمات متفرقة.",
       and: "و",
+      storyTitle: "قصتنا",
     },
     stats: {
       years: "سنوات خبرة",

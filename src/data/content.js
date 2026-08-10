@@ -25,6 +25,10 @@ export const MEMBER_1 = {
     en: "Backend developer and cybersecurity specialist — building secure APIs, databases and hardened infrastructure.",
     ar: "مطوّر باك اند ومتخصص أمن سيبراني — يبني واجهات برمجية وقواعد بيانات وبنية تحتية محصّنة.",
   },
+  story: {
+    en: "Abdelrhman started out breaking things before he learned to build them — poking at web apps to find their weak points sparked a deep curiosity about how systems really work under the hood. That curiosity turned into a career building backend systems that don't just work, but hold up under attack.",
+    ar: "بدأ عبدالرحمن رحلته بكسر الأشياء قبل ما يتعلم بناءها — فضوله في اكتشاف نقاط ضعف تطبيقات الويب فتح شغفه بفهم الأنظمة من جوه. الفضول ده تحوّل لمسار مهني في بناء أنظمة باك اند مش بس بتشتغل، لكن بتصمد قدام أي هجوم.",
+  },
   github: "https://github.com/OnlySonek",
   linkedin: "https://www.linkedin.com/in/abdelrhman-sherif-5a760b37b/",
   website: "https://abdelrhman-sherif-mohamed.netlify.app",
@@ -66,6 +70,10 @@ export const MEMBER_2 = {
     en: "Front-end developer crafting interfaces across React, Angular and Vue with pixel-perfect UI and smooth performance.",
     ar: "مطوّر فرونت اند يبني واجهات باستخدام React وAngular وVue بدقة وأداء سلس.",
   },
+  story: {
+    en: "Seif has always cared about the details most people scroll past — the exact easing of an animation, the pixel that's one off. That obsession pushed him to master React, Angular and Vue, chasing the same goal every time: interfaces that feel effortless to use.",
+    ar: "سيف دايمًا مهتم بالتفاصيل اللي معظم الناس بتعديها من غير ما تلاحظها — حركة الأنيميشن، أو البكسل اللي مش في مكانه. الهوس ده خلّاه يتقن React وAngular وVue، وهدفه ثابت في كل مرة: واجهات المستخدم يحس إنه بيستخدمها من غير أي مجهود.",
+  },
   github: "https://github.com/seifelsayedofficial",
   linkedin: "https://www.linkedin.com/in/seif-elsayed-dev/",
   website: "https://seif-elsayed.netlify.app",
@@ -104,6 +112,10 @@ export const MEMBER_3 = {
   bio: {
     en: "Designs intuitive interfaces and striking visuals — from wireframes to polished brand identities.",
     ar: "يصمم واجهات سهلة الاستخدام وهويات بصرية مميزة — من الهياكل السلكية لحد الهوية الجاهزة.",
+  },
+  story: {
+    en: "This seat is reserved for our third teammate — a designer we haven't introduced yet. Their story (and face) will show up here soon.",
+    ar: "المكان ده محجوز لعضو الفريق التالت — مصمم لسه ما قدّمناهوش. قصته (وصورته) هتظهر هنا قريبًا.",
   },
   github: "#",
   linkedin: "#",
